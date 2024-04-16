@@ -244,6 +244,9 @@ extension ViewController {
             let randomInt = Int.random(in: 0..<rowcount)
             let randomFile = "/" + filesList[randomInt].path.components(separatedBy: "//")[1]
             previewImage = randomFile
+            filesList.remove(at: randomInt)
+            let indexSet = IndexSet(integer: randomInt)
+            tableView.removeRows(at: indexSet, withAnimation: .slideUp)
             setDesktopImage(url: URL(fileURLWithPath: randomFile) )
         }
     }
@@ -303,28 +306,29 @@ extension ViewController {
 
   func saveCurrentSelections() {
     guard let dataFileUrl = urlForDataStorage() else { return }
+      if (filesList.count > 0){
+          try? filesList.description.write(to: dataFileUrl, atomically: true, encoding: .utf8)
+      }
+      else
+      {
+          return
+      }
 
-    let parentForStorage = selectedFolder?.path ?? ""
-    let fileForStorage = selectedItem?.path ?? ""
-    let completeData = "\(parentForStorage)\n\(fileForStorage)\n"
-
-    try? completeData.write(to: dataFileUrl, atomically: true, encoding: .utf8)
   }
 
   func restoreCurrentSelections() {
     guard let dataFileUrl = urlForDataStorage() else { return }
+      if !FileManager.default.fileExists(atPath: dataFileUrl.path)
+      {
+          return
+          
+      }
 
     do {
       let storedData = try String(contentsOf: dataFileUrl)
-      let storedDataComponents = storedData.components(separatedBy: .newlines)
-      if storedDataComponents.count >= 2 {
-        if !storedDataComponents[0].isEmpty {
-          selectedFolder = URL(fileURLWithPath: storedDataComponents[0])
-          if !storedDataComponents[1].isEmpty {
-            selectedItem = URL(fileURLWithPath: storedDataComponents[1])
-            selectUrlInTable(selectedItem)
-          }
-        }
+        let storedDataComponents = storedData.components(separatedBy: ",")
+      if storedDataComponents.count >= 1 {
+       
       }
     } catch {
       print(error)
@@ -346,7 +350,12 @@ extension ViewController {
   }
   
   private func urlForDataStorage() -> URL? {
-    return nil
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+      let documentsDirectory = paths[0]
+          .path+"/RandomiseDesktop.conf"
+      print (documentsDirectory)
+          return URL(fileURLWithPath: documentsDirectory)
+    
   }
 
 }
