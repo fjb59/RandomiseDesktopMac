@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -548,7 +549,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Randomise Desktop" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Randomise Desktop" separatorStyle="shadow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -569,21 +570,21 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RandomiseDesktopMAc" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" misplaced="YES" id="m2S-Jp-Qdl">
+                    <view key="view" wantsLayer="YES" appearanceType="darkAqua" misplaced="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="859" height="321"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHQ-yq-fZL">
-                                <rect key="frame" x="0.0" y="50" width="879" height="291"/>
+                                <rect key="frame" x="0.0" y="50" width="880" height="291"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgE-qj-Phz">
-                                        <rect key="frame" x="0.0" y="20" width="285" height="271"/>
+                                        <rect key="frame" x="0.0" y="20" width="286" height="271"/>
                                         <clipView key="contentView" id="4eg-2k-Fmt">
-                                            <rect key="frame" x="1" y="1" width="283" height="269"/>
+                                            <rect key="frame" x="1" y="1" width="284" height="269"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="xo6-kP-ovj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="283" height="269"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="269"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -656,11 +657,13 @@
                                         </scroller>
                                     </scrollView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z0Y-5l-yJK">
-                                        <rect key="frame" x="290" y="-3" width="592" height="277"/>
+                                        <rect key="frame" x="291" y="-3" width="592" height="277"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="586" id="t5V-gJ-vW3"/>
                                         </constraints>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="oLz-V0-sFf"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="oLz-V0-sFf">
+                                            <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="medium"/>
+                                        </imageCell>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -687,7 +690,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xBl-4b-TZr">
-                                <rect key="frame" x="777" y="8" width="89" height="32"/>
+                                <rect key="frame" x="778" y="8" width="89" height="32"/>
                                 <buttonCell key="cell" type="push" title="Save List" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KaH-H6-cPP">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -697,15 +700,12 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="jf7-kR-eU0">
-                                <rect key="frame" x="639" y="18" width="95" height="18"/>
+                                <rect key="frame" x="640" y="18" width="95" height="18"/>
                                 <buttonCell key="cell" type="check" title="Save in exit" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Xq2-qh-19A">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <color key="bezelColor" red="1" green="0.43795175959999999" blue="0.37175602549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="toggleShowInvisibles:" target="XfG-lQ-9wD" id="HZU-qO-F5e"/>
-                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-uN-TjU">
                                 <rect key="frame" x="163" y="8" width="55" height="32"/>
@@ -760,6 +760,7 @@
                     </view>
                     <connections>
                         <outlet property="InfoImageViewCell" destination="oLz-V0-sFf" id="QuE-dQ-zq5"/>
+                        <outlet property="canSave" destination="Xq2-qh-19A" id="seA-05-ciS"/>
                         <outlet property="edtFileName" destination="PGW-Nk-YHq" id="aic-K1-z6G"/>
                         <outlet property="infoImageView" destination="Z0Y-5l-yJK" id="qG7-a9-QUm"/>
                         <outlet property="moveUpButton" destination="ZJ0-uN-TjU" id="zNm-qw-c3g"/>
@@ -776,5 +777,6 @@
     </scenes>
     <resources>
         <image name="NSActionTemplate" width="15" height="15"/>
+        <image name="magnifyingglass" catalog="system" width="16" height="15"/>
     </resources>
 </document>
