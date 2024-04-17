@@ -13,6 +13,8 @@ class ViewController: NSViewController {
   @IBOutlet weak var infoImageView: NSImageView!
   @IBOutlet weak var InfoImageViewCell: NSImageCell!
 
+    @IBOutlet weak var canSave: NSButtonCell!
+    
     @IBOutlet weak var edtFileName: NSTextField!
     // MARK: - Properties
 
@@ -329,7 +331,11 @@ extension ViewController {
   func saveCurrentSelections() {
     guard let dataFileUrl = urlForDataStorage() else { return }
       if (filesList.count > 0){
-          try? filesList.description.write(to: dataFileUrl, atomically: true, encoding: .utf8)
+          if (canSave.state == NSControl.StateValue.on)
+          {
+              try? filesList.description.write(to: dataFileUrl, atomically: true, encoding: .utf8)
+              
+          }
       }
       else
       {
