@@ -2,6 +2,7 @@
 
 import Cocoa
 
+
 class ViewController: NSViewController {
 
   // MARK: - Outlets
@@ -11,6 +12,8 @@ class ViewController: NSViewController {
   @IBOutlet weak var setButton: NSButton!
   @IBOutlet weak var infoImageView: NSImageView!
   @IBOutlet weak var InfoImageViewCell: NSImageCell!
+
+    @IBOutlet weak var edtFileName: NSTextField!
     // MARK: - Properties
 
   var filesList: [URL] = []
@@ -56,7 +59,8 @@ class ViewController: NSViewController {
       guard let selectedUrl = selectedItem else {
         return
       }
-        view.window?.title = self.selectedImage
+        //view.window?.title = self.selectedImage
+        self.edtFileName.cell?.title=self.selectedImage
         let image = NSImage(contentsOfFile: self.selectedImage)
         infoImageView.image=image
       let infoString = infoAbout(url: selectedUrl)
@@ -77,6 +81,18 @@ class ViewController: NSViewController {
             
         }
     }
+
+   
+    var statusText:String? {
+        didSet
+        {
+            self.edtFileName.cell?.title=statusText ?? " "
+            let pasteBoard = NSPasteboard.general
+            pasteBoard.clearContents()
+            pasteBoard.writeObjects([statusText! as NSString])
+            
+        }
+    }
     
 
   // MARK: - View Lifecycle & error dialog utility
@@ -86,6 +102,8 @@ class ViewController: NSViewController {
     
       
     restoreCurrentSelections()
+      statusText=getDesktopImage()
+      previewImage=getDesktopImage()
      
   }
 
