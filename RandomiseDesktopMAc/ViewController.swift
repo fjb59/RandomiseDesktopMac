@@ -200,6 +200,10 @@ func getDesktopImage() -> String
 
 extension ViewController {
 
+    @IBAction func copyFilePath(_ sender: Any)
+    {
+        
+    }
   @IBAction func selectFolderClicked(_ sender: Any)
   {
       guard let window = view.window else {return}
