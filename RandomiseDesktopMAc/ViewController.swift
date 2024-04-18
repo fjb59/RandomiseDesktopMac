@@ -13,6 +13,11 @@ class ViewController: NSViewController {
   @IBOutlet weak var infoImageView: NSImageView!
   @IBOutlet weak var InfoImageViewCell: NSImageCell!
 
+    @IBAction func RefreshPressed(_ sender: NSButton)
+    {
+        let wallpaper = getDesktopImage()
+        setDesktopImage(url: URL(fileURLWithPath:wallpaper))
+    }
     @IBOutlet weak var canSave: NSButtonCell!
     
     @IBOutlet weak var edtFileName: NSTextField!
@@ -77,9 +82,13 @@ class ViewController: NSViewController {
     var previewImage:String? {
         didSet
         {
-            view.window?.title = previewImage ?? ""
-             let image = NSImage(contentsOfFile: previewImage ?? "")
-            infoImageView.image=image
+           let  tImageName = previewImage ?? ""
+            view.window?.title = tImageName
+            let image = NSImage(contentsOfFile: tImageName )
+            if (image != nil) 
+            {
+                infoImageView.image=image
+            }
             
         }
     }
@@ -105,9 +114,19 @@ class ViewController: NSViewController {
       
     restoreCurrentSelections()
       statusText=getDesktopImage()
-      previewImage=getDesktopImage()
+      
+      
+//
      
   }
+   
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        previewImage=getDesktopImage()
+    }
+   
 
   override func viewWillDisappear() {
     saveCurrentSelections()
@@ -195,6 +214,7 @@ func setDesktopImage(url: URL) {
             options[.imageScaling] = NSNumber(value:NSImageScaling.scaleProportionallyUpOrDown.rawValue)
             
                 try NSWorkspace.shared.setDesktopImageURL(url, for: screen, options: options)
+            
             }
         }
     catch {
