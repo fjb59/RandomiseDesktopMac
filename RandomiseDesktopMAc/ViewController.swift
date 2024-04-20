@@ -6,6 +6,8 @@ import Cocoa
 class ViewController: NSViewController {
 
   // MARK: - Outlets
+    
+    
 
   @IBOutlet weak var tableView: NSTableView!
   @IBOutlet weak var setButton: NSButton!
@@ -59,6 +61,24 @@ class ViewController: NSViewController {
         pasteboard.writeObjects([ImageData as NSImage])
         
     }
+    
+    @IBAction func PasteImageDataClicked (_ sender: NSMenuItem)
+    {
+        let pasteboard = NSPasteboard.general
+        let imageData =  (pasteboard.readObjects(forClasses: [NSImage.self]) ) as? [NSImage]
+        if (imageData?.count ?? 0 > 0)
+        {
+            infoImageView.image = imageData?[0]
+        }
+    }
+    
+    
+    
+    @IBAction func ShowListClicked(_ sender: NSMenuItem)
+    {
+        let currData = tableView.dataSource
+    }
+    
     @IBOutlet weak var canSave: NSButtonCell!
     
     @IBOutlet weak var edtFileName: NSTextField!
