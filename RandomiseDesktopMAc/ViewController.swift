@@ -69,6 +69,24 @@ class ViewController: NSViewController {
         if (imageData?.count ?? 0 > 0)
         {
             infoImageView.image = imageData?[0]
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let filename = paths.appendingPathComponent("preview.png")
+            saveImage(image: infoImageView.image!, tFilename: filename as NSURL)
+        }
+    }
+    
+    func saveImage(image: NSImage, tFilename: NSURL)
+    {
+        
+        let imageRep = NSBitmapImageRep(data: image.tiffRepresentation!)
+        let pngData = imageRep?.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
+        do {
+            try pngData?.write(to: tFilename as URL )
+        }
+        catch
+        {
+            return
+            
         }
     }
     
