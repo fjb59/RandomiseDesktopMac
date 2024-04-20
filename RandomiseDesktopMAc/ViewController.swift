@@ -8,15 +8,51 @@ class ViewController: NSViewController {
   // MARK: - Outlets
 
   @IBOutlet weak var tableView: NSTableView!
-  @IBOutlet weak var saveInfoButton: NSButton!
   @IBOutlet weak var setButton: NSButton!
   @IBOutlet weak var infoImageView: NSImageView!
   @IBOutlet weak var InfoImageViewCell: NSImageCell!
-
-    @IBAction func RefreshPressed(_ sender: NSButton)
+    @IBAction func PasteMenuClicked(_ sender: NSMenuItem)
     {
-        let wallpaper = getDesktopImage()
-        setDesktopImage(url: URL(fileURLWithPath:wallpaper))
+        
+    }
+    @IBAction func DeleteListItem(_ sender:NSMenuItem)
+    {
+        let thisrow = tableView.selectedRow
+        if (thisrow >= 1)
+        {
+            let lIndexSet = IndexSet(integer: thisrow)
+            filesList.remove(at: thisrow)
+            tableView.removeRows(at: lIndexSet)
+        }
+    }
+   
+
+    @IBAction func SaveMenuClicked(_ sender: NSMenuItem)
+    {
+        saveCurrentSelections()
+    }
+    
+    @IBAction func CopyFileNameClicked (_ sender: NSMenuItem)
+    {
+        var selectedFile:String = " "
+        let thisCell =  tableView.selectedRow
+        if thisCell >= 0
+        {
+            selectedFile = "/" + filesList[thisCell].path.components(separatedBy: "//")[1]
+           
+        }
+        else
+        {
+            selectedFile = getDesktopImage()
+            
+        }
+        let pasteBoard = NSPasteboard.general
+        pasteBoard.clearContents()
+        pasteBoard.writeObjects([selectedFile as NSString])
+        
+       
+        
+       
     }
     @IBOutlet weak var canSave: NSButtonCell!
     
@@ -57,7 +93,7 @@ class ViewController: NSViewController {
 
   var selectedItem: URL? {
     didSet {
-      saveInfoButton.isEnabled = false
+     // saveInfoButton.isEnabled = false
     
         if self.selectedItem == nil
         {
@@ -67,14 +103,14 @@ class ViewController: NSViewController {
         return
       }
         //view.window?.title = self.selectedImage
-        self.edtFileName.cell?.title=self.selectedImage
+       // self.edtFileName.cell?.title=self.selectedImage
         let image = NSImage(contentsOfFile: self.selectedImage)
         infoImageView.image=image
       let infoString = infoAbout(url: selectedUrl)
       if !infoString.isEmpty {
         let formattedText = formatInfoText(infoString)
      //   infoTextView.textStorage?.setAttributedString(formattedText)
-        saveInfoButton.isEnabled = true
+       // saveInfoButton.isEnabled = true
       }
     }
   }
@@ -94,16 +130,7 @@ class ViewController: NSViewController {
     }
 
    
-    var statusText:String? {
-        didSet
-        {
-            self.edtFileName.cell?.title=statusText ?? " "
-            let pasteBoard = NSPasteboard.general
-            pasteBoard.clearContents()
-            pasteBoard.writeObjects([statusText! as NSString])
-            
-        }
-    }
+   
     
 
   // MARK: - View Lifecycle & error dialog utility
@@ -113,7 +140,7 @@ class ViewController: NSViewController {
     
       
     restoreCurrentSelections()
-      statusText=getDesktopImage()
+     
       
       
 //
@@ -156,7 +183,7 @@ extension ViewController {
        do {
          // 3
            let contents = try fileManager.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-           let images = contents.filter{ $0.pathExtension == "png" || $0.pathExtension == "jpg" || $0.pathExtension == "jpeg" 
+           let images = contents.filter{ $0.pathExtension == "png" || $0.pathExtension == "jpg" || $0.pathExtension == "jpeg" || $0.pathExtension == "webp"
            }
 
            let urls = images.map { return folder.appendingPathComponent($0.path) }
