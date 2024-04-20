@@ -65,6 +65,16 @@
                                                 <action selector="SaveMenuClicked:" target="Ady-hI-5gd" id="wTX-2z-a6X"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Save" id="yL8-bm-XAs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Save" id="w43-CY-hXH" userLabel="Save">
+                                                <items>
+                                                    <menuItem title="Item" id="PXq-1T-QfB">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Quit" keyEquivalent="q" id="DVo-aG-piG">
                                             <connections>
@@ -78,10 +88,22 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
-                                        <menuItem title="Copy Filename" keyEquivalent="c" id="x3v-GG-iWU">
-                                            <connections>
-                                                <action selector="CopyFileNameClicked:" target="Ady-hI-5gd" id="69g-Bv-fyK"/>
-                                            </connections>
+                                        <menuItem title="copy" id="j4j-VG-CFF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="copy" id="leS-QR-zOa">
+                                                <items>
+                                                    <menuItem title="File name" keyEquivalent="c" id="4DN-Vd-gj5">
+                                                        <connections>
+                                                            <action selector="CopyFileNameClicked:" target="Ady-hI-5gd" id="9zy-Nq-iJz"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Image Data" keyEquivalent="C" id="oog-vo-l33">
+                                                        <connections>
+                                                            <action selector="CopyImageDataClicked:" target="Ady-hI-5gd" id="PYX-6H-CUS"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                         <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL">
                                             <connections>
@@ -216,21 +238,21 @@ CA
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RandomiseDesktopMAc" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" appearanceType="darkAqua" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="891" height="341"/>
+                    <view key="view" wantsLayer="YES" appearanceType="darkAqua" misplaced="YES" id="m2S-Jp-Qdl">
+                        <rect key="frame" x="0.0" y="0.0" width="892" height="341"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHQ-yq-fZL">
-                                <rect key="frame" x="0.0" y="50" width="891" height="291"/>
+                                <rect key="frame" x="0.0" y="50" width="893" height="291"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgE-qj-Phz">
-                                        <rect key="frame" x="0.0" y="20" width="297" height="271"/>
+                                        <rect key="frame" x="0.0" y="20" width="299" height="271"/>
                                         <clipView key="contentView" id="4eg-2k-Fmt">
-                                            <rect key="frame" x="1" y="1" width="295" height="269"/>
+                                            <rect key="frame" x="1" y="1" width="297" height="269"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" id="xo6-kP-ovj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="269"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="297" height="269"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -249,7 +271,7 @@ CA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="FileCell" id="t9L-dO-s4F">
-                                                                    <rect key="frame" x="1" y="1" width="228" height="30"/>
+                                                                    <rect key="frame" x="1" y="1" width="227" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J4t-UC-GPK">
@@ -261,7 +283,7 @@ CA
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="bottom" imageScaling="proportionallyDown" image="NSActionTemplate" id="ZWJ-9t-hPc"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-kY-Mke">
-                                                                            <rect key="frame" x="35" y="6" width="193" height="18"/>
+                                                                            <rect key="frame" x="35" y="6" width="192" height="18"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Fa8-q9-TmE">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -303,7 +325,7 @@ CA
                                         </scroller>
                                     </scrollView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z0Y-5l-yJK">
-                                        <rect key="frame" x="302" y="-3" width="592" height="277"/>
+                                        <rect key="frame" x="304" y="-3" width="592" height="277"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="586" id="t5V-gJ-vW3"/>
                                         </constraints>
@@ -336,7 +358,7 @@ CA
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="jf7-kR-eU0">
-                                <rect key="frame" x="749" y="18" width="95" height="18"/>
+                                <rect key="frame" x="751" y="18" width="95" height="18"/>
                                 <buttonCell key="cell" type="check" title="Save in exit" bezelStyle="regularSquare" imagePosition="left" alignment="center" state="on" inset="2" id="Xq2-qh-19A">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>

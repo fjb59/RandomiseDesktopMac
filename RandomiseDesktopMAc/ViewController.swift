@@ -49,10 +49,15 @@ class ViewController: NSViewController {
         let pasteBoard = NSPasteboard.general
         pasteBoard.clearContents()
         pasteBoard.writeObjects([selectedFile as NSString])
-        
        
+    }
+    @IBAction func CopyImageDataClicked (_ sender: NSMenuItem)
+    {
+        guard let ImageData = InfoImageViewCell.image else { return  }
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.writeObjects([ImageData as NSImage])
         
-       
     }
     @IBOutlet weak var canSave: NSButtonCell!
     
