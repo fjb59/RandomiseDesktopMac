@@ -27,6 +27,17 @@ class ViewController: NSViewController {
             tableView.removeRows(at: lIndexSet)
         }
     }
+    @IBAction func ClearListItems(_ sender: NSMenuItem)
+    {
+        filesList.removeAll()
+        tableView.reloadData()
+        do {
+           try  FileManager.default.removeItem(atPath: urlForDataStorage()!.path)
+        }
+        catch {
+            print("Error deleting file: \(error)")
+        }
+    }
    
 
     @IBAction func SaveMenuClicked(_ sender: NSMenuItem)
@@ -222,7 +233,7 @@ extension ViewController {
            let images = contents.filter{ $0.pathExtension == "png" || $0.pathExtension == "jpg" || $0.pathExtension == "jpeg" || $0.pathExtension == "webp"
            }
 
-           let urls = images.map { return folder.appendingPathComponent($0.path) }
+           let urls = images.map { return $0 }
          return urls
        }
       catch
@@ -327,7 +338,7 @@ extension ViewController {
         if (rowcount>0)
         {
             let randomInt = Int.random(in: 0..<rowcount)
-            let randomFile = "/" + filesList[randomInt].path.components(separatedBy: "//")[1]
+            let randomFile = filesList[randomInt].path
             previewImage = randomFile
             filesList.remove(at: randomInt)
             let indexSet = IndexSet(integer: randomInt)
@@ -358,7 +369,7 @@ extension ViewController: NSTableViewDelegate {
   func tableView(_ tableView: NSTableView, viewFor
     tableColumn: NSTableColumn?, row: Int) -> NSView? {
       let item = filesList[row]
-      let itemPath = "/"+item.path.components(separatedBy: "//")[1]
+      let itemPath = item.path
       let fileIcon = NSWorkspace.shared.icon(forFile: itemPath)
       if let cell = tableView.makeView(withIdentifier:  NSUserInterfaceItemIdentifier(rawValue:"FileCell") , owner: nil)
             as? NSTableCellView {
@@ -377,9 +388,7 @@ extension ViewController: NSTableViewDelegate {
       selectedItem = nil
       return
     }
-    let selectedthing = filesList[tableView.selectedRow].path.components(separatedBy: "//")[1]
-        self.selectedImage="/"+selectedthing
-        print (URL(fileURLWithPath: self.selectedImage))
+        self.selectedImage = filesList[tableView.selectedRow].path //.components(separatedBy: "//")[1]
         selectedItem = URL(fileURLWithPath: self.selectedImage)
   }
 
@@ -394,8 +403,22 @@ extension ViewController {
       if (filesList.count > 0){
           if (canSave.state == NSControl.StateValue.on)
           {
-              try? filesList.description.write(to: dataFileUrl, atomically: true, encoding: .utf8)
+              let fm = FileManager.default
+            
+              if (!fm.fileExists(atPath: dataFileUrl.path))
+              {
+                  FileManager.default.createFile(atPath: dataFileUrl.path, contents: Data(" ".utf8))
+              }
+              let listfileHandle = FileHandle(forWritingAtPath: dataFileUrl.path)
               
+            
+              let filesToDump = filesList.map({return($0.path+"\n")})
+              for fileToDump in filesToDump
+              {
+                  listfileHandle?.write(fileToDump.data(using: .utf8)!)
+              }
+              //try? filesList.write(to: dataFileUrl, atomically: true, encoding: .utf8)
+              listfileHandle?.closeFile()
           }
       }
       else
@@ -415,10 +438,29 @@ extension ViewController {
 
     do {
       let storedData = try String(contentsOf: dataFileUrl)
-        let storedDataComponents = storedData.components(separatedBy: ",")
-      if storedDataComponents.count >= 1 {
-       
-      }
+        let storedDataComponents = storedData.components(separatedBy: "\n")
+      if storedDataComponents.count >= 1
+        {
+          filesList.removeAll()
+          for dataComponent in storedDataComponents
+          {
+              if (dataComponent.first=="[")
+              {
+                  filesList.append(URL(fileURLWithPath: String(dataComponent.dropFirst())))
+              }
+              if (dataComponent.last=="]")
+              {
+                  filesList.append(URL(fileURLWithPath: String(dataComponent.dropLast(1))))
+              }
+              else
+              {
+                  filesList.append(URL(fileURLWithPath: dataComponent))
+              }
+              
+          }
+          self.tableView.reloadData()
+          self.tableView.scrollRowToVisible(0)
+        }
     } catch {
       print(error)
     }
@@ -442,7 +484,6 @@ extension ViewController {
       let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
       let documentsDirectory = paths[0]
           .path+"/RandomiseDesktop.conf"
-      print (documentsDirectory)
           return URL(fileURLWithPath: documentsDirectory)
     
   }
