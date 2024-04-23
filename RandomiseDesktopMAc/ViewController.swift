@@ -142,19 +142,12 @@ class ViewController: NSViewController {
         {
           return
         }
-      guard let selectedUrl = selectedItem else {
-        return
-      }
+     
         //view.window?.title = self.selectedImage
        // self.edtFileName.cell?.title=self.selectedImage
         let image = NSImage(contentsOfFile: self.selectedImage)
         infoImageView.image=image
-      let infoString = infoAbout(url: selectedUrl)
-      if !infoString.isEmpty {
-        let formattedText = formatInfoText(infoString)
-     //   infoTextView.textStorage?.setAttributedString(formattedText)
-       // saveInfoButton.isEnabled = true
-      }
+    
     }
   }
     
@@ -238,29 +231,7 @@ extension ViewController {
       }
   }
 
-  func infoAbout(url: URL) -> String {
-      let fileManager = FileManager.default
 
-        // 2
-        do {
-          // 3
-            let thispath = url.relativePath
-            let attributes = try fileManager.attributesOfItem(atPath: thispath)
-          var report: [String] = ["\(url.path)", ""]
-
-          // 4
-          for (key, value) in attributes {
-            // ignore NSFileExtendedAttributes as it is a messy dictionary
-            if key.rawValue == "NSFileExtendedAttributes" { continue }
-            report.append("\(key.rawValue):\t \(value)")
-          }
-          // 5
-          return report.joined(separator: "\n")
-        } catch {
-          // 6
-          return "No information available for \(url.path)"
-        }
-  }
 
   func formatInfoText(_ text: String) -> NSAttributedString {
       let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
