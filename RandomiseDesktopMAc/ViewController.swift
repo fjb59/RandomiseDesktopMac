@@ -49,9 +49,10 @@ class ViewController: NSViewController {
     {
         var selectedFile:String = " "
         let thisCell =  tableView.selectedRow
+        print (filesList.count)
         if thisCell >= 0
         {
-            selectedFile = "/" + filesList[thisCell].path.components(separatedBy: "//")[1]
+            selectedFile = filesList[thisCell].path
            
         }
         else
@@ -86,6 +87,13 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func viewWallpaper (_ sender: NSMenuItem)
+    {
+        let ThatFile=getDesktopImage()
+        
+        NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: ThatFile)])
+        
+    }
     func saveImage(image: NSImage, tFilename: NSURL)
     {
         
@@ -415,7 +423,11 @@ extension ViewController {
               let filesToDump = filesList.map({return($0.path+"\n")})
               for fileToDump in filesToDump
               {
-                  listfileHandle?.write(fileToDump.data(using: .utf8)!)
+                  if fileToDump != getDesktopImage()+"\n"
+                  {
+                      listfileHandle?.write(fileToDump.data(using: .utf8)!)
+                      
+                  }
               }
               //try? filesList.write(to: dataFileUrl, atomically: true, encoding: .utf8)
               listfileHandle?.closeFile()
@@ -442,20 +454,17 @@ extension ViewController {
       if storedDataComponents.count >= 1
         {
           filesList.removeAll()
+          let wallpaper = getDesktopImage()
+          if wallpaper != "naffink"
+          {
+              filesList.append(URL(string:  wallpaper)!)
+          }
+        
           for dataComponent in storedDataComponents
           {
-              if (dataComponent.first=="[")
-              {
-                  filesList.append(URL(fileURLWithPath: String(dataComponent.dropFirst())))
-              }
-              if (dataComponent.last=="]")
-              {
-                  filesList.append(URL(fileURLWithPath: String(dataComponent.dropLast(1))))
-              }
-              else
-              {
+            
                   filesList.append(URL(fileURLWithPath: dataComponent))
-              }
+              
               
           }
           self.tableView.reloadData()

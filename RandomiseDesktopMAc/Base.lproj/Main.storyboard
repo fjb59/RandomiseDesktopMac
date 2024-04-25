@@ -187,6 +187,14 @@ CA
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="9TD-bU-Onx"/>
+                                        <menuItem title="Wallpaper" id="ssy-xJ-7fK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="HyV-fh-RgO" id="fTt-Ej-ABC"/>
+                                                <action selector="viewWallpaper:" target="Ady-hI-5gd" id="fYf-hy-scH"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -383,7 +391,7 @@ CA
                                                             <rect key="frame" x="10" y="7" width="302" height="214"/>
                                                             <clipView key="contentView" id="f5K-3d-Czf">
                                                                 <rect key="frame" x="1" y="1" width="300" height="212"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="J2T-zD-yiU" viewBased="YES" id="W0y-dd-lkk">
                                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="184"/>
@@ -405,7 +413,7 @@ CA
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="Csi-Ed-EyW">
-                                                                                        <rect key="frame" x="8" y="0.0" width="114" height="24"/>
+                                                                                        <rect key="frame" x="18" y="0.0" width="114" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onY-HR-N3q">
@@ -437,7 +445,7 @@ CA
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <prototypeCellViews>
                                                                                     <tableCellView id="Wzk-ac-XYh">
-                                                                                        <rect key="frame" x="139" y="0.0" width="152" height="24"/>
+                                                                                        <rect key="frame" x="149" y="0.0" width="152" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                         <subviews>
                                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mKb-da-YeD">
@@ -461,7 +469,7 @@ CA
                                                                 </subviews>
                                                             </clipView>
                                                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="LVX-ya-c04">
-                                                                <rect key="frame" x="1" y="198" width="299" height="16"/>
+                                                                <rect key="frame" x="1" y="197" width="300" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Idk-d2-jE9">
