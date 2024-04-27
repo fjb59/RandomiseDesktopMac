@@ -458,10 +458,18 @@ extension ViewController {
           {
               let fm = FileManager.default
             
-              if (!fm.fileExists(atPath: dataFileUrl.path))
+              if (fm.fileExists(atPath: dataFileUrl.path))
               {
-                  FileManager.default.createFile(atPath: dataFileUrl.path, contents: Data(" ".utf8))
+                  do {
+                     try  FileManager.default.removeItem(atPath: urlForDataStorage()!.path)
+                  }
+                  catch {
+                      print("Error deleting file: \(error)")
+                  }
+                  
               }
+              FileManager.default.createFile(atPath: dataFileUrl.path, contents: Data(" ".utf8))
+              
               let listfileHandle = FileHandle(forWritingAtPath: dataFileUrl.path)
               
             
@@ -470,7 +478,11 @@ extension ViewController {
               {
                   if fileToDump != getDesktopImage()+"\n"
                   {
-                      listfileHandle?.write(fileToDump.data(using: .utf8)!)
+                      let cleanFile = String(fileToDump.dropLast(1))
+                      if FileManager.default.fileExists(atPath: cleanFile)
+                      {
+                          listfileHandle?.write(fileToDump.data(using: .utf8)!)
+                      }
                       
                   }
               }
@@ -509,9 +521,12 @@ extension ViewController {
         
           for dataComponent in storedDataComponents
           {
+              let fm = FileManager.default
             
+              if (fm.fileExists(atPath: dataComponent))
+              {
                   filesList.append(URL(fileURLWithPath: dataComponent))
-              
+              }
               
           }
           self.tableView.reloadData()
