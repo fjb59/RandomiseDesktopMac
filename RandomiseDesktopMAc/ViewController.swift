@@ -180,6 +180,10 @@ class ViewController: NSViewController {
             {
                 infoImageView.image=image
             }
+            else
+            {
+                return
+            }
             
         }
     }
@@ -195,13 +199,48 @@ class ViewController: NSViewController {
     
       
     restoreCurrentSelections()
+      let menu = NSMenu()
+      let ViewSubMenu = NSMenuItem()
+      menu.addItem(NSMenuItem(title: "Copy Filename", action: #selector(tableContextItemClicked(_:)), keyEquivalent: ""))
+      menu.addItem(NSMenuItem(title: "Copy Image Data", action: #selector(tableContextItemClicked(_:)), keyEquivalent: ""))
+      
+      menu.addItem(.separator())
+      ViewSubMenu.title="View with"
+      ViewSubMenu.submenu = NSMenu(title: "View with")
+      ViewSubMenu.submenu?.addItem(withTitle: "Finder", action: #selector(tableContextItemClicked(_:)), keyEquivalent: "")
+      
+      menu.addItem(ViewSubMenu)
+      
+      menu.addItem(NSMenuItem(title: "Delete", action: #selector(tableContextItemClicked(_:)), keyEquivalent: ""))
+      tableView.menu = menu
      
       
-      
-//
      
   }
+
+    @objc private func tableContextItemClicked(_ sender: NSMenuItem) {
+
+        
+        switch sender.title {
+        case "Copy Filename":
+            CopyFileNameClicked(sender)
+            break
+        case "Copy Image Data":
+            CopyImageDataClicked(sender)
+            break
+        default:
+            return
+        }
+        print (sender.title)
+        guard tableView.clickedRow >= 0 else { return }
+
+        let item = tableView.clickedRow
+        
+        //showDetailsViewController(with: item)
+    }
+
    
+
     
     
     override func awakeFromNib() {
@@ -225,6 +264,7 @@ class ViewController: NSViewController {
   }
 
 }
+
 
 // MARK: - Getting file or folder information
 
@@ -370,12 +410,15 @@ extension ViewController: NSTableViewDataSource {
 
 }
 
+
 // MARK: - NSTableViewDelegate
 
 extension ViewController: NSTableViewDelegate {
-
+ 
   func tableView(_ tableView: NSTableView, viewFor
     tableColumn: NSTableColumn?, row: Int) -> NSView? {
+      
+      
       let item = filesList[row]
       let itemPath = item.path
       let fileIcon = NSWorkspace.shared.icon(forFile: itemPath)
@@ -456,8 +499,10 @@ extension ViewController {
           filesList.removeAll()
           let wallpaper = getDesktopImage()
           if wallpaper != "naffink"
+            
           {
-              filesList.append(URL(string:  wallpaper)!)
+              let theUrl:URL = URL(fileURLWithPath: wallpaper)
+              filesList.append(theUrl)
           }
         
           for dataComponent in storedDataComponents
