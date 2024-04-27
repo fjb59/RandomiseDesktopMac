@@ -11,7 +11,7 @@ class ViewController: NSViewController {
 
   @IBOutlet weak var tableView: NSTableView!
   @IBOutlet weak var setButton: NSButton!
-  @IBOutlet weak var infoImageView: NSImageView!
+  @IBOutlet weak var infoImageView: MyImageClass!
   @IBOutlet weak var InfoImageViewCell: NSImageCell!
     @IBAction func PasteMenuClicked(_ sender: NSMenuItem)
     {
@@ -196,6 +196,8 @@ class ViewController: NSViewController {
 
   override func viewWillAppear() {
     super.viewWillAppear()
+      infoImageView.setTable(tTable: &filesList)
+    
     
       
     restoreCurrentSelections()

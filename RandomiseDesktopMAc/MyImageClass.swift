@@ -8,10 +8,14 @@
 import Cocoa
 
 class MyImageClass: NSImageView {
+    private var  table:[URL]?
     
-    var filesArray:[String] = []
-    
-
+    var filesArray:[URL] = []
+ 
+    func setTable (tTable : inout [URL])
+    {
+        table=tTable
+    }
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -52,7 +56,9 @@ class MyImageClass: NSImageView {
                 return false
             
             }
-        filesArray.append(path)
+        
+        let fileURL: URL = (URL(fileURLWithPath: path) )
+        table?.append(fileURL)
 
             //GET YOUR FILE PATH !!!
           
