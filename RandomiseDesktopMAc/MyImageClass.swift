@@ -38,27 +38,20 @@ class MyImageClass: NSImageView {
             return super.draggingEntered(sender)
         }
     }
-    override func draggingExited(_ sender: NSDraggingInfo?) {
-        super.draggingExited(sender)
-    }
-    override func draggingEnded(_ sender: NSDraggingInfo) {
-        super.draggingEnded(sender)
-    }
-    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        super.draggingUpdated(sender)
-    }
+   
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let pasteboard = sender.draggingPasteboard.propertyList(forType: NSPasteboard.PasteboardType(rawValue: "NSFilenamesPboardType")) as? NSArray,
+       guard let pasteboard = sender.draggingPasteboard.propertyList(forType: NSPasteboard.PasteboardType(rawValue: "NSFilenamesPboardType")) as? NSArray,
               let path:String = pasteboard[0] as? String
             else
             {
                 return false
-            
+
             }
-        
+//
         let fileURL: URL = (URL(fileURLWithPath: path) )
         table?.append(fileURL)
+       
 
             //GET YOUR FILE PATH !!!
           
