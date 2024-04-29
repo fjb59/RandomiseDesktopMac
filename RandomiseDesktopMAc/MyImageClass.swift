@@ -8,14 +8,12 @@
 import Cocoa
 
 class MyImageClass: NSImageView {
-    private var  table:[URL]?
+   // private var  table:[URL]?
     
-    var filesArray:[URL] = []
+  //  var filesArray:[URL] = []
+    var DraggedFile:String = ""
  
-    func setTable (tTable : inout [URL])
-    {
-        table=tTable
-    }
+   
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -24,7 +22,7 @@ class MyImageClass: NSImageView {
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
        //super.draggingEntered(sender)
     //    let thisColour = self.layer?.backgroundColor
-        filesArray=[]
+        //filesArray=[]
 
         let board = sender.draggingPasteboard.propertyList(forType: NSPasteboard.PasteboardType("NSFilenamesPboardType"))
         if (board != nil)
@@ -50,14 +48,15 @@ class MyImageClass: NSImageView {
             }
 //
         let fileURL: URL = (URL(fileURLWithPath: path) )
-        table?.append(fileURL)
+        DraggedFile = fileURL.path 
        
-
+        
             //GET YOUR FILE PATH !!!
           
 
             return true
         }
+    
     
     
     

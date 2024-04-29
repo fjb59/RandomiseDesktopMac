@@ -514,6 +514,9 @@ CA
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="oLz-V0-sFf">
                                             <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="medium"/>
                                         </imageCell>
+                                        <connections>
+                                            <action selector="ImageHandler:" target="XfG-lQ-9wD" id="F4G-hP-omA"/>
+                                        </connections>
                                     </imageView>
                                 </subviews>
                                 <constraints>

@@ -17,6 +17,17 @@ class ViewController: NSViewController {
     {
         
     }
+    
+    @IBAction func ImageHandler(_ sender: MyImageClass)
+    {
+        if(sender.DraggedFile != "")
+        {
+            let thisFile:URL = URL(fileURLWithPath: sender.DraggedFile )
+            filesList.append(thisFile)
+            tableView.reloadData()
+        }
+    }
+    
     @IBAction func DeleteListItem(_ sender:NSMenuItem)
     {
         let thisrow = tableView.selectedRow
@@ -196,7 +207,7 @@ class ViewController: NSViewController {
 
   override func viewWillAppear() {
     super.viewWillAppear()
-      infoImageView.setTable(tTable: &filesList)
+ //     infoImageView.setTable(tTable: &filesList)
     
     
       
@@ -241,7 +252,9 @@ class ViewController: NSViewController {
         //showDetailsViewController(with: item)
     }
 
-   
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        return
+    }
 
     
     
